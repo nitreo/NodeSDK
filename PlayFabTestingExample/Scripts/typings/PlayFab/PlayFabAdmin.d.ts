@@ -39,6 +39,11 @@ declare module PlayFabAdminModule {
          */
         BanUsers(request: PlayFabAdminModels.BanUsersRequest, callback: PlayFabModule.ApiCallback<PlayFabAdminModels.BanUsersResult>): void;
         /**
+         * Checks the global count for the limited edition item.
+         * https://api.playfab.com/Documentation/Admin/method/CheckLimitedEditionItemAvailability
+         */
+        CheckLimitedEditionItemAvailability(request: PlayFabAdminModels.CheckLimitedEditionItemAvailabilityRequest, callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CheckLimitedEditionItemAvailabilityResult>): void;
+        /**
          * Create an ActionsOnPlayersInSegment task, which iterates through all players in a segment to execute action.
          * https://api.playfab.com/Documentation/Admin/method/CreateActionsOnPlayersInSegmentTask
          */
@@ -295,6 +300,11 @@ declare module PlayFabAdminModule {
          * https://api.playfab.com/Documentation/Admin/method/GrantItemsToUsers
          */
         GrantItemsToUsers(request: PlayFabAdminModels.GrantItemsToUsersRequest, callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GrantItemsToUsersResult>): void;
+        /**
+         * Increases the global count for the given scarce resource.
+         * https://api.playfab.com/Documentation/Admin/method/IncrementLimitedEditionItemAvailability
+         */
+        IncrementLimitedEditionItemAvailability(request: PlayFabAdminModels.IncrementLimitedEditionItemAvailabilityRequest, callback: PlayFabModule.ApiCallback<PlayFabAdminModels.IncrementLimitedEditionItemAvailabilityResult>): void;
         /**
          * Resets the indicated statistic, removing all player entries for it and backing up the old values.
          * https://api.playfab.com/Documentation/Admin/method/IncrementPlayerStatisticVersion
@@ -868,6 +878,22 @@ declare module PlayFabAdminModels {
         ResultTableContents?: string[];
         /** virtual currency types and balances which will be added to the player inventory when the container is unlocked */
         VirtualCurrencyContents?: { [key: string]: number };
+
+    }
+
+    /** https://api.playfab.com/Documentation/Admin/datatype/PlayFab.Admin.Models/PlayFab.Admin.Models.CheckLimitedEditionItemAvailabilityRequest */
+    export interface CheckLimitedEditionItemAvailabilityRequest extends PlayFabModule.IPlayFabRequestCommon {
+        /** Which catalog is being updated. If null, uses the default catalog. */
+        CatalogVersion?: string;
+        /** The item to check for. */
+        ItemId: string;
+
+    }
+
+    /** https://api.playfab.com/Documentation/Admin/datatype/PlayFab.Admin.Models/PlayFab.Admin.Models.CheckLimitedEditionItemAvailabilityResult */
+    export interface CheckLimitedEditionItemAvailabilityResult extends PlayFabModule.IPlayFabResultCommon  {
+        /** The amount of the specified resource remaining. */
+        Amount: number;
 
     }
 
@@ -2234,6 +2260,22 @@ declare module PlayFabAdminModels {
     export interface GrantItemsToUsersResult extends PlayFabModule.IPlayFabResultCommon  {
         /** Array of items granted to users. */
         ItemGrantResults?: GrantedItemInstance[];
+
+    }
+
+    /** https://api.playfab.com/Documentation/Admin/datatype/PlayFab.Admin.Models/PlayFab.Admin.Models.IncrementLimitedEditionItemAvailabilityRequest */
+    export interface IncrementLimitedEditionItemAvailabilityRequest extends PlayFabModule.IPlayFabRequestCommon {
+        /** Amount to increase availability by. */
+        Amount: number;
+        /** Which catalog is being updated. If null, uses the default catalog. */
+        CatalogVersion?: string;
+        /** The item which needs more availability. */
+        ItemId: string;
+
+    }
+
+    /** https://api.playfab.com/Documentation/Admin/datatype/PlayFab.Admin.Models/PlayFab.Admin.Models.IncrementLimitedEditionItemAvailabilityResult */
+    export interface IncrementLimitedEditionItemAvailabilityResult extends PlayFabModule.IPlayFabResultCommon  {
 
     }
 
